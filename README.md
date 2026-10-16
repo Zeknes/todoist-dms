@@ -2,7 +2,7 @@
 
 DankMaterialShell（DMS）的 Todoist 插件。在 bar 右侧组的最左显示「今天（含逾期）」任务数徽标，点开面板按 tab 看任务、点勾完成（4 秒内可撤销）。
 
-面板结构与 macOS 版 `Zeknes/todoist-bar` 对齐：优先级色点 / 任务名 / 最多 2 个 @标签 / 中文日期胶囊（逾期红、今天绿、明天橙），错误分类提示。只读 + 完成 + 撤销，不做添加。
+面板结构与作者的 macOS 菜单栏版实现对齐：优先级色点 / 任务名 / 最多 2 个 @标签 / 中文日期胶囊（逾期红、今天绿、明天橙），错误分类提示。只读 + 完成 + 撤销，不做添加。
 
 
 面板顶部是一排**平级 tab**：`今天` + 每个项目各一个，点 tab 切换；32px 行高的紧凑排版，内容少时面板自动收缩，内容多时按屏幕高度上限在列表内滚动。
@@ -87,13 +87,13 @@ chmod 600 ~/.config/todoist-dms/config.json
 
 ## 面板结构
 
-- **一排平级 tab**：`今天` + **每个项目各一个 tab**（Inbox、购物清单、个人空间、快送熊 ……）。没有「项目」这一级中间层。
+- **一排平级 tab**：`今天` + **每个项目各一个 tab**（Inbox、工作、个人、购物 等，就是你自己的项目）。没有「项目」这一级中间层。
 - **tab 顺序**：第一个固定「今天」，其余沿用 **Todoist API `/projects` 的返回顺序**（即 `child_order` —— 他在 Todoist App 里拖动项目得到的顺序），Inbox 也在它自己的位置。**要改顺序就在 Todoist App 里拖动项目**，插件不排序。
-- tab 上显示该组未完成数（如 `个人空间 24`）。tab 多时这一排可以横向滚动（触摸板/拖动），不会挤爆面板宽度。
+- tab 上显示该组未完成数（如 `工作 12`）。tab 多时这一排可以横向滚动（触摸板/拖动），不会挤爆面板宽度。
 - **每个 tab 是独立视图，不跨 tab 去重**：一条任务可以既出现在「今天」tab（今天到期/逾期），也出现在它所属项目的 tab 里 —— 与 macOS 版一致。
 - **每个 tab 最多显示 50 条**（设置项）：到上限后列表末尾显示「还有 N 条未显示」。
 - **面板高度自适应**：内容少就收缩到刚好放下；上限约**屏幕可用高度的 90%**（只留 bar 厚度与上下留白），超过才在列表内滚动。切 tab / 窗口尺寸变化都会重算。
-  本机实测（行高 32px）：**1440 屏一次能放 34 行**（第 35 条起滚动）；**1080 屏能放 25 行**（第 26 条起滚动）。
+  实测（3440×1440，行高 32px）：一次能放 **34 行**，第 35 条起滚动。
 - **tab 选择在多实例（多屏 bar）间共享**：一个屏上切了 tab，另一屏的面板打开也是同一个 tab。
 - 状态行（`今天 N 项 · 更新于 HH:mm · 子任务已折叠 · 还有 N 条未显示`）在 tab 条上方，10px 小字。
 
@@ -139,11 +139,11 @@ chmod 600 ~/.config/todoist-dms/config.json
 插件注册了 IPC 目标 `todoistDms`：
 
 ```bash
-dms ipc call todoistDms status      # ok badge=2 today=2 overdue=1 tasks=50 tab=today rows=2 shown=2 truncated=0 limit=50 collapsed=false maxRows=34 scrolls=false updated=15:19
-dms ipc call todoistDms tabs        # tab 列表（* 是当前）：今天 (2) / Inbox (0) / 购物清单 (6) / 个人空间 (24) / 快送熊 (20)
+dms ipc call todoistDms status      # ok badge=3 today=3 overdue=1 tasks=42 tab=today rows=3 shown=3 truncated=0 limit=50 collapsed=false maxRows=34 scrolls=false updated=15:19
+dms ipc call todoistDms tabs        # tab 列表（* 是当前）：今天 (3) / Inbox (0) / 工作 (6) / 个人 (24) / 购物 (20)
 dms ipc call todoistDms entries     # 当前 tab 的行：depth / 折叠标记 / 任务 id / 文案 | 日期
 dms ipc call todoistDms tab today            # 切 tab（参数也可以是项目 id）
-dms ipc call todoistDms tab 6hj7pqqcGGQP96WX
+dms ipc call todoistDms tab <projectId>          # 项目 id 从 `tabs` 输出里取
 dms ipc call todoistDms refresh              # 立刻拉一次
 dms ipc call todoistDms open                 # 打开面板（close 关闭）
 dms ipc call todoistDms done <taskId>        # 完成（连带子树）
