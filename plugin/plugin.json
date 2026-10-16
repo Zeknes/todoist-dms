@@ -1,0 +1,20 @@
+{
+    "id": "todoistDms",
+    "name": "Todoist",
+    "description": "Bar 上显示今日（含逾期）任务数，点开面板可看任务、点勾完成（4 秒可撤销）",
+    "version": "1.0.0",
+    "author": "Zek",
+    "type": "widget",
+    "capabilities": ["dankbar-widget", "todoist", "tasks", "monitoring"],
+    "component": "./TodoistWidget.qml",
+    "icon": "checklist",
+    "settings": "./TodoistSettings.qml",
+    "requires_dms": ">=0.1.0",
+    "dependencies": ["python3"],
+    "permissions": [
+        "settings_read",
+        "settings_write",
+        "process",
+        "network"
+    ]
+}
