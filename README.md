@@ -61,12 +61,11 @@ token 只由 `plugin/scripts/todoist_api.py` 读取，只进 `Authorization` 头
 3. 环境变量 `TODOIST_DMS_API_KEY`
 4. `~/.config/todoist-dms/token`（纯 token 文本）
 5. `~/.config/todoist/token`
-6. `~/.agents/personal-skills/todoist/token`（本机 Todoist skill 自带的）
 
 ```bash
-# 例子：独立配置（不动 skill 的 token）
+# 例子：把 token 写进插件自己的配置（推荐；权限 600，不进仓库）
 mkdir -p ~/.config/todoist-dms
-printf '{"api_token": "%s"}\n' "$(cat ~/.agents/personal-skills/todoist/token)" > ~/.config/todoist-dms/config.json
+printf '{"api_token": "%s"}\n' "$YOUR_TOKEN" > ~/.config/todoist-dms/config.json
 chmod 600 ~/.config/todoist-dms/config.json
 ```
 

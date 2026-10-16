@@ -30,7 +30,6 @@ TOKEN_FILE_CANDIDATES = (
     "~/.config/todoist-dms/config.json",
     "~/.config/todoist-dms/token",
     "~/.config/todoist/token",
-    "~/.agents/personal-skills/todoist/token",
 )
 
 CONFIG_TOKEN_KEYS = ("apiToken", "api_token", "token", "apiKey", "api_key")
