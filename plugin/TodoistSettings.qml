@@ -17,7 +17,7 @@ PluginSettings {
 
     StyledText {
         width: parent.width
-        text: "Token 读取顺序：本页填写的文件路径 → ~/.config/todoist-dms/config.json（api_token 字段）→ 环境变量 TODOIST_DMS_API_KEY → ~/.config/todoist/token → ~/.agents/personal-skills/todoist/token。token 只由脚本读取并放进请求头，不会写进本设置文件。"
+        text: "Token 读取顺序：本页填写的文件路径 → ~/.config/todoist-dms/config.json（api_token 字段）→ 环境变量 TODOIST_DMS_API_KEY → ~/.config/todoist/token。token 只由脚本读取并放进请求头，不会写进本设置文件。"
         font.pixelSize: Theme.fontSizeSmall
         color: Theme.surfaceVariantText
         wrapMode: Text.WordWrap
