@@ -4,15 +4,9 @@ DankMaterialShell（DMS）的 Todoist 插件。在 bar 右侧组的最左显示�
 
 面板结构与 macOS 版 `Zeknes/todoist-bar` 对齐：优先级色点 / 任务名 / 最多 2 个 @标签 / 中文日期胶囊（逾期红、今天绿、明天橙），错误分类提示。只读 + 完成 + 撤销，不做添加。
 
-![bar 上的徽标](docs/screenshots/bar-badge.png)
-![平级 tab](docs/screenshots/panel-tabs.png)
 
 面板顶部是一排**平级 tab**：`今天` + 每个项目各一个，点 tab 切换；32px 行高的紧凑排版，内容少时面板自动收缩，内容多时按屏幕高度上限在列表内滚动。
 
-![收缩态](docs/screenshots/panel-shrink.png)
-![长列表：个人空间 24 条（1440 屏一次放完，不滚动）](docs/screenshots/panel-long.png)
-![超上限：子任务默认折叠 + 截断提示](docs/screenshots/panel-collapsed.png)
-![手动展开子任务](docs/screenshots/panel-expanded.png)
 
 ## 目录结构
 
@@ -26,7 +20,6 @@ todoist-dms/
 ├── install.sh                    # 安装 + 启用（--with-bar 顺便加进 bar 布局）
 ├── uninstall.sh                  # 禁用 + 从 bar 移除 + 删目录
 ├── reload.sh                     # 开发用：同步文件 + 热重载，不重启 DMS
-├── docs/screenshots/
 └── README.md
 ```
 
@@ -138,7 +131,6 @@ chmod 600 ~/.config/todoist-dms/config.json
 - **点任务左侧圆圈** → 完成（连带子树，见上）；面板底部出现「已完成「xxx」 撤销」条，4 秒内点撤销调 `/tasks/{id}/reopen` 恢复，超时则确认完成。
   完成/撤销后会立刻拉一次，并在 3 秒后再拉一次——Todoist 的读副本偶尔滞后，第二次拉取用来收敛数字。
 
-![完成 + 4 秒撤销](docs/screenshots/panel-undo.png)
 - **错误态**：无 token 时显示引导页（key_off 图标 + 四种配置方式）；401/403、429、5xx、断网、超时分别给出中文文案 + 重试按钮。刷新失败不会清空已有数据。
 - 面板只有列表，没有输入框（不做添加）。
 
